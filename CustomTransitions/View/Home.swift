@@ -66,6 +66,9 @@ struct Home: View {
             .background(.ultraThinMaterial)
             .environment(\.colorScheme, .dark)
         }
+        .onTapGesture {
+            show.toggle()
+        }
     }
 }
 

@@ -37,6 +37,9 @@ struct CubicTransition<Content: View, Detail: View>: View {
                         detail
                             .frame(width: size.width, height: size.height)
                             .transition(.move(edge: .trailing))
+                            .onDisappear {
+                                print("Closed")
+                            }
                     }
                 }
                 .rotation3DEffect(.init(degrees: animateView ? 0 : 85), axis: (x: 0, y: 1, z: 0), anchor: .leading, anchorZ: 0, perspective: 1)
@@ -45,7 +48,12 @@ struct CubicTransition<Content: View, Detail: View>: View {
         }
         .onChange(of: show) { newValue in
             
-            if show{showView = true}
+            if show {showView = true}
+            else {
+                DispatchQueue.main.asyncAfter(deadline: .now() + 0.35) {
+                    showView = false
+                }
+            }
             
             DispatchQueue.main.asyncAfter(deadline: .now() + 0.01) {
                 withAnimation(.easeInOut(duration: 0.35)) {
