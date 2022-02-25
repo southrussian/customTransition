@@ -22,7 +22,7 @@ struct Home: View {
                         .clipped()
                     
                     Button {
-                        
+                        show.toggle()
                     } label: {
                         
                         Text("Navigate")
@@ -45,12 +45,26 @@ struct Home: View {
         .ignoresSafeArea()
         .overlay(alignment: .top) {
             HStack(spacing: 12) {
-                Text("Custom Transition")
+                
+                if show {
+                    Button {
+                        show.toggle()
+                    } label: {
+                        Image(systemName: "arrow.left")
+                            .font(.title2)
+                            .foregroundColor(.white)
+                    }
+                }
+                
+                Text(show ? "Back" : "Custom Transition")
                     .font(.title.bold())
                     .foregroundColor(.white)
             }
             .padding()
+            .padding(.top, 4)
             .frame(maxWidth: .infinity, alignment: .leading)
+            .background(.ultraThinMaterial)
+            .environment(\.colorScheme, .dark)
         }
     }
 }
